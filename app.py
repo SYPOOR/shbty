@@ -3,7 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-# دالة الاتصال بقاعدة البيانات
+   
 def get_db_connection():
     conn = sqlite3.connect('courses.db')
     conn.row_factory = sqlite3.Row
@@ -23,7 +23,7 @@ def search():
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # استخدام LOWER لمطابقة غير حساسة لحالة الأحرف
+          
         cursor.execute('SELECT * FROM courses WHERE LOWER(course_name) = ? AND course_number = ? AND classification = ?', 
                        (course_name, course_number, classification))
         courses = cursor.fetchall()
