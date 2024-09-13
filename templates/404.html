@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطأ 404 - الصفحة غير موجودة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        .header img {
+            height: 50px;
+            cursor: pointer;
+        }
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .menu-icon div {
+            width: 25px;
+            height: 3px;
+            background-color: #872A08;
+            margin: 4px 0;
+        }
+        .navbar {
+            display: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #872A08;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar.show {
+            display: block;
+            transform: translateX(0);
+        }
+        .navbar ul {
+            padding: 20px;
+        }
+        .navbar ul li {
+            border-bottom: 1px solid #A9441D;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .navbar ul li a:hover {
+            background-color: #A9441D;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #872A08;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        .error-logo {
+            width: 200px;
+            margin: 20px auto;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #872A08;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #6b1e05;
+        }
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        footer p {
+            color: #777;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='uhb.png') }}" alt="شعار جامعة حفر الباطن" onclick="window.location.href='/';">
+        <img src="{{ url_for('static', filename='vision2030.png') }}" alt="رؤية 2030">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="navbar" id="navbar">
+        <ul>
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/search">بحث عن شعبة</a></li>
+            <li><a href="/add">إضافة شعبة</a></li>
+            <li><a href="/contact">تواصل معنا</a></li>
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="container">
+        <h2>خطأ 404 - الصفحة غير موجودة</h2>
+        <p>عذرًا، الصفحة التي تحاول الوصول إليها غير موجودة. ربما تم نقلها أو حذفها.</p>
+        <img src="{{ url_for('static', filename='error.png') }}" alt="Error Logo" class="error-logo">
+        <a href="/" class="back-button">العودة إلى الصفحة الرئيسية</a>
+    </div>
+
+    <footer>
+        <p>هذا الموقع غير رسمي ولا يتبع جامعة حفر الباطن.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navbar = document.getElementById('navbar');
+            const overlay = document.getElementById('overlay');
+            navbar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معنا</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        .header img {
+            height: 50px;
+            cursor: pointer;
+        }
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .menu-icon div {
+            width: 25px;
+            height: 3px;
+            background-color: #872A08;
+            margin: 4px 0;
+        }
+        .navbar {
+            display: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #872A08;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar.show {
+            display: block;
+            transform: translateX(0);
+        }
+        .navbar ul {
+            padding: 20px;
+        }
+        .navbar ul li {
+            border-bottom: 1px solid #A9441D;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .navbar ul li a:hover {
+            background-color: #A9441D;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #872A08;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #006c84;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #006c84;
+            font-size: 18px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        .contact-method:hover {
+            background-color: #006c84;
+            color: white;
+        }
+        .contact-method img {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        footer p {
+            color: #777;
+            font-size: 16px;
+        }
+        footer a {
+            color: #872A08;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='uhb.png') }}" alt="شعار جامعة حفر الباطن" onclick="window.location.href='/';">
+        <img src="{{ url_for('static', filename='vision2030.png') }}" alt="رؤية 2030">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="navbar" id="navbar">
+        <ul>
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/search">بحث عن شعبة</a></li>
+            <li><a href="/add">إضافة شعبة</a></li>
+            <li><a href="/contact">تواصل معنا</a></li>
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="container">
+        <h2>تواصل معنا</h2>
+        <p>يمكنك التواصل معنا في حال لديك اقتراح أو واجهتك مشكلة ما للمساعدة. نحن هنا لنساعدك.</p>
+        
+        <a href="mailto:saaleh802@gmail.com" class="contact-method">
+            <img src="https://img.icons8.com/ios-filled/50/006c84/email.png" alt="Email Icon">
+            البريد الإلكتروني
+        </a>
+
+
+        <a href="https://www.linkedin.com/in/saleh-al-anazi-118a38296/" class="contact-method">
+            <img src="https://img.icons8.com/ios-filled/50/006c84/linkedin.png" alt="LinkedIn Icon">
+            لينكد إن
+        </a>
+    </div>
+
+    <footer>
+        <p>هذا الموقع غير رسمي ولا يتبع جامعة حفر الباطن. هو مبادرة طلابية للمساعدة.</p>
+        <p>تم إنشاؤه بواسطة <a href="https://www.linkedin.com/in/saleh-al-anazi-118a38296/" target="_blank">صالح العنزي</a>.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navbar = document.getElementById('navbar');
+            const overlay = document.getElementById('overlay');
+            navbar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

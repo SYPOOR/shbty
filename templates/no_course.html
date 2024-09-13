@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لا توجد شعبة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        .header img {
+            height: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #872A08;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        p {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .about-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .about-section p {
+            color: #333;
+            font-size: 18px;
+        }
+        .about-section a {
+            color: #872A08;
+            text-decoration: none;
+        }
+        .about-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='uhb.png') }}" alt="شعار جامعة حفر الباطن" onclick="window.location.href='/';">
+        <img src="{{ url_for('static', filename='vision2030.png') }}" alt="رؤية 2030">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>لا توجد شعبة مطابقة</h2>
+        <p>لم يتم العثور على شعبة بهذا الاسم أو الرقم.</p>
+        <p><a href="/add">إضافة شعبة جديدة</a></p>
+    </div>
+    <div class="about-section">
+        <h3>من نحن</h3>
+        <p>هذا الموقع غير رسمي ولا يتبع جامعة حفر الباطن. تم إنشاؤه كمبادرة طلابية بواسطة <a href="https://www.linkedin.com/in/saleh-al-anazi-118a38296/" target="_blank">صالح العنزي</a>   
+    </div>
+</div>
+    <script>
+        function toggleMenu() {
+            const navbar = document.getElementById('navbar');
+            const overlay = document.getElementById('overlay');
+            navbar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

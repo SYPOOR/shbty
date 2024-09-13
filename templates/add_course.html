@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة شعبة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        .header img {
+            height: 50px;
+        }
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .menu-icon div {
+            width: 25px;
+            height: 3px;
+            background-color: #872A08;
+            margin: 4px 0;
+        }
+        .navbar {
+            display: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #872A08;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar.show {
+            display: block;
+            transform: translateX(0);
+        }
+        .navbar ul {
+            padding: 20px;
+        }
+        .navbar ul li {
+            border-bottom: 1px solid #A9441D;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .navbar ul li a:hover {
+            background-color: #A9441D;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 500;
+            display: none;
+        }
+        .overlay.show {
+            display: block;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #872A08;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .add-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .add-form input, .add-form select {
+            width: 80%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            transition: border-color 0.3s ease;
+        }
+        .add-form input:focus, .add-form select:focus {
+            border-color: #872A08;
+        }
+        .add-button {
+            background-color: #872A08;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            width: 80%;
+            margin-top: 20px;
+        }
+        .add-button:hover {
+            background-color: #6b1e05;
+        }
+        .toggle-options {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .toggle-options div {
+            width: 50%;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: 1px solid #ccc;
+        }
+        .toggle-options div.active {
+            background-color: #872A08;
+            color: white;
+        }
+        .input-field {
+            display: none;
+        }
+        .input-field.active {
+            display: block;
+        }
+        .about-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .about-section p {
+            color: #333;
+            font-size: 18px;
+        }
+        .about-section a {
+            color: #872A08;
+            text-decoration: none;
+        }
+        .about-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='uhb.png') }}" alt="شعار جامعة حفر الباطن" onclick="window.location.href='/';">
+        <img src="{{ url_for('static', filename='vision2030.png') }}" alt="رؤية 2030">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="navbar" id="navbar">
+        <ul>
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/search">بحث عن شعبة</a></li>
+            <li><a href="/add">إضافة شعبة</a></li>
+            <li><a href="/contact">تواصل معنا</a></li>
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="container">
+        <h2>إضافة شعبة</h2>
+        <div class="toggle-options">
+            <div id="linkOption" class="active" onclick="toggleInput('link')">باستخدام رابط</div>
+            <div id="adminOption" onclick="toggleInput('admin')">باستخدام رقم أدمن</div>
+        </div>
+        <form class="add-form" action="/add" method="POST">
+            <input type="text" name="course_name" placeholder="اسم المقرر: مثلا DSC" required><br>
+            <input type="text" name="course_number" placeholder="رقم المقرر: رقم الذي بجانب الاسم" required><br>
+
+            <select name="classification" required>
+                <option value="عيال">عيال</option>
+                <option value="بنات">بنات</option>
+                <option value="عام">عام</option>
+            </select>
+
+            <div id="groupLinkField" class="input-field active">
+                <input type="text" name="group_link" placeholder="رابط القروب" id="group_link_input" required>
+            </div>
+
+            <div id="adminNumberField" class="input-field">
+                <input type="text" name="admin_number" placeholder="رقم الأدمن" id="admin_number_input">
+            </div>
+
+            <button type="submit" class="add-button">إضافة شعبة</button>
+        </form>
+    </div>
+    <div class="about-section">
+        <h3>من نحن</h3>
+        <p>هذا الموقع غير رسمي ولا يتبع جامعة حفر الباطن. تم إنشاؤه كمبادرة طلابية بواسطة <a href="https://www.linkedin.com/in/saleh-al-anazi-118a38296/" target="_blank">صالح العنزي</a>   
+    </div>
+</div>
+    <script>
+        function toggleMenu() {
+            const navbar = document.getElementById('navbar');
+            const overlay = document.getElementById('overlay');
+            navbar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+
+        function toggleInput(option) {
+            const linkField = document.getElementById('groupLinkField');
+            const adminField = document.getElementById('adminNumberField');
+            const linkInput = document.getElementById('group_link_input');
+            const adminInput = document.getElementById('admin_number_input');
+            const linkOption = document.getElementById('linkOption');
+            const adminOption = document.getElementById('adminOption');
+
+            if (option === 'link') {
+                linkField.classList.add('active');
+                adminField.classList.remove('active');
+                linkOption.classList.add('active');
+                adminOption.classList.remove('active');
+                linkInput.required = true;
+                adminInput.required = false;
+            } else {
+                adminField.classList.add('active');
+                linkField.classList.remove('active');
+                adminOption.classList.add('active');
+                linkOption.classList.remove('active');
+                linkInput.required = false;
+                adminInput.required = true;
+            }
+        }
+    </script>
+
+</body>
+</html>

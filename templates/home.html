@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        .header img {
+            height: 50px;
+            cursor: pointer;
+        }
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .menu-icon div {
+            width: 25px;
+            height: 3px;
+            background-color: #872A08;
+            margin: 4px 0;
+        }
+        .navbar {
+            display: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #872A08;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar.show {
+            display: block;
+            transform: translateX(0);
+        }
+        .navbar ul {
+            padding: 20px;
+        }
+        .navbar ul li {
+            border-bottom: 1px solid #A9441D;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .navbar ul li a:hover {
+            background-color: #A9441D;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #872A08;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        .search-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #872A08;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #6b1e05;
+        }
+        .faq {
+            margin-top: 50px;
+        }
+        .faq-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            display: none;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #666;
+            text-align: right;
+            padding: 10px 0;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-item .arrow {
+            transition: transform 0.3s ease;
+            margin-left: 10px;
+        }
+        .faq-item.active .arrow {
+            transform: rotate(90deg);
+        }
+        .about-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .about-section p {
+            color: #333;
+            font-size: 18px;
+        }
+        .about-section a {
+            color: #872A08;
+            text-decoration: none;
+        }
+        .about-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='uhb.png') }}" alt="شعار جامعة حفر الباطن" onclick="window.location.href='/';">
+        <img src="{{ url_for('static', filename='vision2030.png') }}" alt="رؤية 2030">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="navbar" id="navbar">
+        <ul>
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/search">بحث عن شعبة</a></li>
+            <li><a href="/add">إضافة شعبة</a></li>
+            <li><a href="/contact">تواصل معنا</a></li>
+            
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="container">
+        <h2>أين شعبتي؟</h2>
+        <p>🔎 البحث عن قروب لشعبة لم يكن أسهل من قبل! فقط اضغط على الزر التالي وابحث بسهولة. وإذا لم تجد شعبتك، يمكنك إضافتها بكل سهولة من خلال قسم "الإضافة".</p>
+        <a href="/search" class="search-button">بحث عن شعبة</a>
+
+        <div class="faq">
+            <h3>الأسئلة الشائعة</h3>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <p>كيف أبحث عن شعبتي؟</p>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="faq-answer">
+                يمكنك البحث عن شعبتك من خلال النقر على زر "بحث عن شعبة" وإدخال تفاصيل الشعبة المطلوبة.
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <p>لم أجد شعبتي، ماذا أفعل؟</p>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="faq-answer">
+                إذا لم تجد شعبتك، يمكنك بسهولة إضافة شعبة جديدة عبر قسم "إضافة شعبة".
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <p>من نحن؟</p>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="faq-answer">
+                هذا الموقع غير رسمي ولا يتبع جامعة حفر الباطن. هو مبادرة طلابية أنشأها <a href="https://www.linkedin.com/in/salehalenazi" target="_blank">صالح العنزي</a>، طالب في جامعة حفر الباطن، لمساعدة الطلاب الذين واجهوا نفس مشكلته بسبب تكرار القروبات العشوائية لنفس الشعبة.
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h3>من نحن</h3>
+            <p>هذا الموقع غير رسمي ولا يتبع جامعة حفر الباطن. تم إنشاؤه كمبادرة طلابية بواسطة <a href="https://www.linkedin.com/in/salehalenazi" target="_blank">صالح العنزي</a>   
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navbar = document.getElementById('navbar');
+            const overlay = document.getElementById('overlay');
+            navbar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+
+        function toggleFaq(faqItem) {
+            const isActive = faqItem.classList.contains('active');
+            const allItems = document.querySelectorAll('.faq-item');
+            const allAnswers = document.querySelectorAll('.faq-answer');
+
+            allItems.forEach(item => item.classList.remove('active'));
+            allAnswers.forEach(answer => answer.style.display = 'none');
+
+            if (!isActive) {
+                faqItem.classList.add('active');
+                faqItem.nextElementSibling.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
